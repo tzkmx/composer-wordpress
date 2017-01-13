@@ -2,6 +2,8 @@
 
 Base configuration for install and deploy WordPress sites using composer
 
+Inspired by simmetric/wordpress-composer-installation and bedrock/roots with some magic of composer installer script
+
 The structure for your WordPress instalation will be:
 
     /.env             -> edit in this file the most common config constants
