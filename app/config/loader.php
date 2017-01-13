@@ -27,12 +27,6 @@ if (file_exists($env_config)) {
 define('WP_HOME', getenv('WP_HOME'));
 define('WP_SITEURL', getenv('WP_SITEURL'));
 /**
- * Custom Content Directory
- */
-define('CONTENT_DIR', '/media');
-define('WP_CONTENT_DIR', $webroot_dir . CONTENT_DIR);
-define('WP_CONTENT_URL', WP_HOME . CONTENT_DIR);
-/**
  * DB settings
  */
 define('DB_NAME', getenv('DB_NAME'));
@@ -54,5 +48,16 @@ define('DISALLOW_FILE_EDIT', true);
  * Bootstrap WordPress
  */
 if (!defined('ABSPATH')) {
-    define('ABSPATH', $webroot_dir . '/cmd/');
+    define('ABSPATH', $webroot_dir . '/cms');
 }
+/**
+ * Custom Media, Plugins and Theme paths
+ */
+define('CONTENT_DIR', '/media');
+define('WP_CONTENT_DIR', $webroot_dir . CONTENT_DIR);
+define('WP_CONTENT_URL', WP_HOME . CONTENT_DIR);
+define('WP_PLUGIN_DIR' , $webroot_dir . '/extensions');
+define('WP_PLUGIN_URL' , WP_HOME . '/extensions');
+define('WPMU_PLUGIN_DIR' , $webroot_dir . '/extensions/must');
+define('WPMU_PLUGIN_URL' , WP_HOME . '/extensions/must');
+register_theme_directory($webroot_dir . '/themes');
