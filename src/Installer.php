@@ -12,21 +12,39 @@ use Composer\Script\Event;
 
 class Installer
 {
+    static $http_dir;
+    static $base_dir;
     public static function config(Event $event)
     {
         $vendor_dir = $event->getComposer()->getConfig()->get('vendor-dir');
-        $base_dir = dirname($vendor_dir);
-        $http_dir = self::mkPath([$base_dir, 'public']);
+        self::$base_dir = dirname( $vendor_dir );
+        self::$http_dir = self::mkPath([self::$base_dir, 'public']);
 
-        $original_index_wp_path = self::mkPath([$http_dir, 'cms', 'index.php']);
-        $original_index = file_get_contents($original_index_wp_path);
-
-        $custom_index_wp_path = self::mkPath([$http_dir, 'index.php']);
-        $custom_index = str_replace("'/wp-blog-header.php'", "'/cms/wp-blog-header.php'", $original_index);
-
-        file_put_contents($custom_index_wp_path, $custom_index);
+        self::rebuildIndex();
+        self::initializeSalts();
     }
 
+    protected static function rebuildIndex()
+    {
+        $custom_index_wp_path = self::mkPath([self::$http_dir, 'index.php']);
+
+        if(! file_exists($custom_index_wp_path) ) {
+            $original_index_wp_path = self::mkPath([self::$http_dir, 'cms', 'index.php']);
+            $original_index = file_get_contents($original_index_wp_path);
+
+            $custom_index = str_replace("'/wp-blog-header.php'", "'/cms/wp-blog-header.php'", $original_index);
+
+            file_put_contents($custom_index_wp_path, $custom_index);
+        }
+    }
+    protected static function initializeSalts()
+    {
+        $salts_filename = self::mkPath([self::$base_dir, 'salts.php']);
+        if(! file_exists($salts_filename) ) {
+            $salts = "<?php\n" . file_get_contents('https://api.wordpress.org/secret-key/1.1/salt/');
+            file_put_contents($salts_filename, $salts);
+        }
+    }
     public static function mkPath($parts)
     {
         return implode(DIRECTORY_SEPARATOR, $parts);
