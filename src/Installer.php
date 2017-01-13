@@ -22,6 +22,8 @@ class Installer
 
         self::rebuildIndex();
         self::initializeSalts();
+        self::initializeDotenv();
+        self::initializeWpconfig();
     }
 
     protected static function rebuildIndex()
@@ -44,6 +46,20 @@ class Installer
             $salts = "<?php\n" . file_get_contents('https://api.wordpress.org/secret-key/1.1/salt/');
             file_put_contents($salts_filename, $salts);
         }
+    }
+    protected static function initializeDotenv()
+    {
+        $dotenvToCreate = self::mkPath([self::$base_dir, '.env']);
+
+        if(! file_exists($dotenvToCreate) ) {
+            copy( self::mkPath([self::$base_dir, '.env.example']), $dotenvToCreate );
+            echo "Customize your .env file for required environment: $dotenvToCreate \n";
+        }
+    }
+    protected static function initializeWpconfig()
+    {
+        copy( self::mkPath([self::$base_dir, 'src', 'config', 'wp-config-base.php']),
+            self::mkPath([self::$http_dir, 'wp-config.php']));
     }
     public static function mkPath($parts)
     {

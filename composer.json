@@ -18,7 +18,8 @@
         "composer/installers": "1.*",
         "johnpbloch/wordpress": "4.*",
         "wpackagist-theme/twentysixteen": "*",
-        "wpackagist-plugin/timber-library": "1.2.1"
+        "wpackagist-plugin/timber-library": "1.2.1",
+        "vlucas/dotenv": "2.*"
     },
     "autoload": {
 	    "psr-4": { "Tzkmx\\WP\\": "src/" }
