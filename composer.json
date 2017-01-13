@@ -1,10 +1,10 @@
 {
-    "name": "simettric/wordpress-composer-installation",
+    "name": "jefrancomix/wordpress-composed",
     "license": "MIT",
     "authors": [
         {
-            "name": "Asier Marqués",
-            "email": "asiermarques@gmail.com"
+            "name": "Jesus Franco",
+            "email": "jefrancomix@gmail.com"
         }
     ],
     "repositories": [
@@ -14,17 +14,24 @@
         }
     ],
     "require": {
-        "php": ">=5.4",
+        "php": ">=5.6",
         "composer/installers": "1.*",
         "johnpbloch/wordpress": "4.*",
-        "wpackagist-theme/twentysixteen": "*"
+        "wpackagist-theme/twentysixteen": "*",
+        "wpackagist-plugin/timber-library": "1.2.1"
+    },
+    "autoload": {
+	    "psr-4": { "Tzkmx\\WP\\": "src/" }
     },
     "extra": {
-        "wordpress-install-dir": "public/_wp/",
+        "wordpress-install-dir": "public/cms/",
         "installer-paths": {
-            "public/wp-content/mu-plugins/{$name}/": ["type:wordpress-muplugin"],
-            "public/wp-content/plugins/{$name}/": ["type:wordpress-plugin"],
-            "public/wp-content/themes/{$name}/": ["type:wordpress-theme"]
+            "public/extensions/must/{$name}/": ["type:wordpress-muplugin"],
+            "public/extensions/{$name}/": ["type:wordpress-plugin"],
+            "public/themes/{$name}/": ["type:wordpress-theme"]
         }
+    },
+    "scripts": {
+	    "post-create-project-cmd": "Tzkmx\\WP\\Installer::config"
     }
 }
