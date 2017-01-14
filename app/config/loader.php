@@ -16,7 +16,7 @@ if (file_exists($root_dir . '/.env')) {
  * Set up our global environment constant and load its config first
  * Default: development
  */
-define('WP_ENV', env('WP_ENV') ?: 'development');
+define('WP_ENV', getenv('WP_ENV') ?: 'development');
 $env_config = __DIR__ . '/environments/' . WP_ENV . '.php';
 if (file_exists($env_config)) {
     require_once $env_config;
@@ -52,12 +52,13 @@ if (!defined('ABSPATH')) {
 }
 /**
  * Custom Media, Plugins and Theme paths
+ * check webroot dir, upload, register_theme_directory
  */
-define('CONTENT_DIR', '/media');
-define('WP_CONTENT_DIR', $webroot_dir . CONTENT_DIR);
-define('WP_CONTENT_URL', WP_HOME . CONTENT_DIR);
+define('WP_CONTENT_DIR', $webroot_dir);
+define('WP_CONTENT_URL', WP_HOME);
 define('WP_PLUGIN_DIR' , $webroot_dir . '/extensions');
 define('WP_PLUGIN_URL' , WP_HOME . '/extensions');
 define('WPMU_PLUGIN_DIR' , $webroot_dir . '/extensions/must');
 define('WPMU_PLUGIN_URL' , WP_HOME . '/extensions/must');
+define('UPLOADS', 'media');
 register_theme_directory($webroot_dir . '/themes');
