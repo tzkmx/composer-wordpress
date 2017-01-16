@@ -24,6 +24,7 @@ class Installer
         self::initializeSalts();
         self::initializeDotenv();
         self::initializeWpconfig();
+        self::installMustUsePlugins();
     }
 
     protected static function rebuildIndex()
@@ -60,6 +61,12 @@ class Installer
     {
         copy( self::mkPath([self::$base_dir, 'src', 'config', 'wp-config-base.php']),
             self::mkPath([self::$http_dir, 'wp-config.php']));
+    }
+    protected static function installMustUsePlugins()
+    {
+        mkdir( self::mkPath([self::$http_dir, 'must']), 0775 );
+        copy( self::mkPath([self::$base_dir, 'src', 'config', 'fixed_uploads_to_media.php']),
+            self::mkPath([self::$http_dir, 'must', 'uploads_to_media.php']));
     }
     public static function mkPath($parts)
     {

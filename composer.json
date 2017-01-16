@@ -27,7 +27,7 @@
     "extra": {
         "wordpress-install-dir": "public/cms/",
         "installer-paths": {
-            "public/extensions/must/{$name}/": ["type:wordpress-muplugin"],
+            "public/must/{$name}/": ["type:wordpress-muplugin"],
             "public/extensions/{$name}/": ["type:wordpress-plugin"],
             "public/themes/{$name}/": ["type:wordpress-theme"]
         }

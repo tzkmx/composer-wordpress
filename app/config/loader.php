@@ -27,6 +27,10 @@ if (file_exists($env_config)) {
 define('WP_HOME', getenv('WP_HOME'));
 define('WP_SITEURL', getenv('WP_SITEURL'));
 /**
+ * WP custom path
+ */
+define('WP_PATH', substr(WP_SITEURL, strrpos(WP_SITEURL, '/') ) );
+/**
  * DB settings
  */
 define('DB_NAME', getenv('DB_NAME'));
@@ -48,17 +52,16 @@ define('DISALLOW_FILE_EDIT', true);
  * Bootstrap WordPress
  */
 if (!defined('ABSPATH')) {
-    define('ABSPATH', $webroot_dir . '/cms');
+    define('ABSPATH', $webroot_dir . WP_PATH);
 }
 /**
  * Custom Media, Plugins and Theme paths
- * check webroot dir, upload, register_theme_directory
+ * @see https://gist.github.com/tzkmx/4c832432bc63fd67a3a16f940a184145
  */
 define('WP_CONTENT_DIR', $webroot_dir);
 define('WP_CONTENT_URL', WP_HOME);
 define('WP_PLUGIN_DIR' , $webroot_dir . '/extensions');
 define('WP_PLUGIN_URL' , WP_HOME . '/extensions');
-define('WPMU_PLUGIN_DIR' , $webroot_dir . '/extensions/must');
-define('WPMU_PLUGIN_URL' , WP_HOME . '/extensions/must');
-define('UPLOADS', 'media');
-register_theme_directory($webroot_dir . '/themes');
+define('WPMU_PLUGIN_DIR' , $webroot_dir . '/must');
+define('WPMU_PLUGIN_URL' , WP_HOME . '/must');
+define('UPLOADS', '../media');
