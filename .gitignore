@@ -1,7 +1,7 @@
 .idea
 .DS_Store
-config-dev.php
 .env
 salts.php
 public/
 /vendor
+*~

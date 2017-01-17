@@ -6,12 +6,15 @@ Inspired by simmetric/wordpress-composer-installation and bedrock/roots with som
 
 The structure for your WordPress instalation will be:
 
-    /.env             -> edit in this file the most common config constants
-    /vendor           -> You shouldn't touch anything here, 3rd party libraries
+    /.env              -> edit in this file the most common config constants
+    /vendor            -> You shouldn't touch anything here, 3rd party libraries
     /public
-    /public/cms       -> the WordPress installation dir (managed by composer)
-    /public/index.php -> custom WordPress bootstrap file
-    /public/media -> the WordPress wp-content directory
+    /public/cms        -> the WordPress installation dir (managed by composer)
+    /public/index.php  -> custom WordPress bootstrap file
+    /public/media      -> the WordPress directory to store uploads
+    /public/extensions -> WordPress plugins, managed by composer
+    /public/must       -> WordPress must-use plugins
+    /public/themes     -> themes directory
     /app/config/environments/{development,production,...}.php extra configuration
 
 It uses [WordPress Packagist](https://wpackagist.org/) in order to manage your plugins, themes and other php dependencies
@@ -26,14 +29,14 @@ It uses [WordPress Packagist](https://wpackagist.org/) in order to manage your p
 **Create your project:**
 
 ```bash
-composer create-project jefrancomix/wordpress-composed your_directory_name "dev-master"
+composer create-project jefrancomix/composer-wordpress your_directory_name "dev-master"
 ```
 
 **Set the WordPress permissions:**
 ```bash
 # Configure the wp-content/uploads permissions
 # https://codex.wordpress.org/Changing_File_Permissions
-chmod -R 755 public/wp-content/uploads
+chmod -R 775 public/media
 ```
  
 ### Step2: Configuration
@@ -44,4 +47,4 @@ Copy .env.example to .env and customize your parameters
 
 By default a file in ``app/config/environments/development.php`` is customizable,
   if you need to customize extra vars, you can create other files in that dir,
-  and load it setting the WP_ENV in your custom ``.env`` file to the given name.
+  and load its settings by changing the WP_ENV var in your custom ``.env`` file.
