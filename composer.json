@@ -23,6 +23,10 @@
         "vlucas/phpdotenv": "2.*",
         "twig/twig": "~1.31"
     },
+    "suggests": {
+        "wpackagist-plugin/stream-manager": "Give curator powers to your editors",
+        "wpackagist-plugin/a3-lazy-load": "Enable lazy loading for super fast navigation through your site!"
+    },
     "autoload": {
 	    "psr-4": { "Tzkmx\\WP\\": "src/" }
     },
