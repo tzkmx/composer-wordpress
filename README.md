@@ -2,8 +2,6 @@
 
 Base configuration for install and deploy WordPress sites using composer
 
-Inspired by simmetric/wordpress-composer-installation and bedrock/roots with some magic of composer installer script
-
 The structure for your WordPress instalation will be:
 
     /.env              -> edit in this file the most common config constants
@@ -24,7 +22,7 @@ It uses [WordPress Packagist](https://wpackagist.org/) in order to manage your p
 ### Step1: Instalation
 
 **Requirements:**
-* PHP5.6 or greater
+* PHP7.1 or greater
 
 **Create your project:**
 
@@ -48,3 +46,8 @@ Copy .env.example to .env and customize your parameters
 By default a file in ``app/config/environments/development.php`` is customizable,
   if you need to customize extra vars, you can create other files in that dir,
   and load its settings by changing the WP_ENV var in your custom ``.env`` file.
+
+### Credits
+
+Inspired by [simmetric/wordpress-composer-installation](https://github.com/simettric/wordpress-composer-installation)
+and [bedrock/roots](https://github.com/roots/bedrock) with some magic of composer installer script (mostly rewrite and copy files)
