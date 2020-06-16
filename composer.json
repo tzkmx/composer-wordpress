@@ -1,11 +1,11 @@
 {
     "name": "jefrancomix/composer-wordpress",
-    "description": "WordPress managed by composer with highly customized paths (bye wp-content!)",
+    "description": "WordPress opinionated setup with highly customized paths (bye wp-content!)",
     "license": "MIT",
     "authors": [
         {
             "name": "Jesus Franco",
-            "email": "jefrancomix@gmail.com"
+            "email": "tezcatl@fedoraproject.org"
         }
     ],
     "repositories": [

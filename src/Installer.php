@@ -14,17 +14,42 @@ class Installer
 {
     static $http_dir;
     static $base_dir;
+
+    /**
+     * Supports: --skip-wp-config --skip-must-use.
+     *
+     * @var array custom arguments via command line on manual script run
+     */
+    static $customArguments = [];
+
     public static function config(Event $event)
     {
-        $vendor_dir = $event->getComposer()->getConfig()->get('vendor-dir');
-        self::$base_dir = dirname( $vendor_dir );
-        self::$http_dir = self::mkPath([self::$base_dir, 'public']);
+        self::initializeParameters($event);
 
         self::rebuildIndex();
         self::initializeSalts();
         self::initializeDotenv();
         self::initializeWpconfig();
-        self::installMustUsePlugins();
+
+        try {
+            self::installMustUsePlugins();
+        } catch (\ErrorException $e) {
+            echo "Maybe you should run this script with option --skip-must-use\n";
+            echo $e->getMessage(), "\n";
+        }
+    }
+
+    protected static function initializeParameters(Event $event)
+    {
+        self::$customArguments = array_flip($event->getArguments());
+        $vendor_dir = $event->getComposer()->getConfig()->get('vendor-dir');
+        self::$base_dir = dirname( $vendor_dir );
+        self::$http_dir = self::mkPath([self::$base_dir, 'public']);
+    }
+
+    protected static function shouldSkip(string $key): bool
+    {
+        return isset(self::$customArguments['--skip-' . $key]);
     }
 
     protected static function rebuildIndex()
@@ -59,11 +84,15 @@ class Installer
     }
     protected static function initializeWpconfig()
     {
+        if (self::shouldSkip('wp-config')) return;
+
         copy( self::mkPath([self::$base_dir, 'src', 'config', 'wp-config-base.php']),
             self::mkPath([self::$http_dir, 'wp-config.php']));
     }
     protected static function installMustUsePlugins()
     {
+        if (self::shouldSkip('must-use')) return;
+
         mkdir( self::mkPath([self::$http_dir, 'must']), 0775 );
         copy( self::mkPath([self::$base_dir, 'src', 'config', 'fixed_uploads_to_media.php']),
             self::mkPath([self::$http_dir, 'must', 'uploads_to_media.php']));
