@@ -47,6 +47,29 @@ By default a file in ``app/config/environments/development.php`` is customizable
   if you need to customize extra vars, you can create other files in that dir,
   and load its settings by changing the WP_ENV var in your custom ``.env`` file.
 
+### Using Apache? Example .htaccess for using these routes
+
+```
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+# add a trailing slash to /wp-admin
+RewriteRule ^wp-admin$ wp-admin/ [R=301,L]
+
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+### Using public/cms where wordpress.org is installed:
+RewriteRule ^(wp-(content|admin|includes).*) cms/$1 [L]
+RewriteRule ^(.*\.php)$ cms/$1 [L]
+
+RewriteRule . index.php [L]
+</IfModule>
+# END WordPress
+```
+
 ### Credits
 
 Inspired by [simmetric/wordpress-composer-installation](https://github.com/simettric/wordpress-composer-installation)
