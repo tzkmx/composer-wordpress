@@ -5,3 +5,5 @@ salts.php
 public/
 /vendor
 *~
+composer.lock
+
