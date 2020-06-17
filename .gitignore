@@ -6,4 +6,4 @@ public/
 /vendor
 *~
 composer.lock
-
+local-packages/

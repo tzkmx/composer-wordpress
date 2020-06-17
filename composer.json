@@ -10,6 +10,13 @@
     ],
     "repositories": [
         {
+            "type": "path",
+            "url": "local-packages/replica-demo-basico",
+            "options": {
+                "symlink": true
+            }
+        },
+        {
             "type": "composer",
             "url": "https://wpackagist.org"
         }
@@ -23,7 +30,9 @@
         "johnpbloch/wordpress-core-installer": "^2.0",
         "wpackagist-plugin/timber-library": "^1.16.0",
         "wpackagist-theme/astra": "^2.4.5",
-        "wpackagist-theme/twentytwenty": "~1.4"
+        "wpackagist-theme/twentytwenty": "~1.4",
+        "ext-json": "*",
+        "jefrancomix/replica-demo-basico": "dev-master"
     },
     "suggest": {
         "wpackagist-plugin/stream-manager": "Give curator powers to your editors",
